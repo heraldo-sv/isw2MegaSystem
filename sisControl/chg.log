@@ -1,0 +1,43 @@
+Log de cambios
+
++ creación de proyecto
+    composer create-project --prefer-dist laravel/laravel sisControl
++ Cambio Nombre Aplicación
+    php artisan app:name sisControl
++ Activar modo Debug
+    config/app.php
++ Cambio de idioma de la Aplicación
+    creación de archivos para cambio de idioma.
++ ejecutar Aplicación
+    cmd: php artisan serve
++ Crear modelos con migracion
+    cmd: php artisan make:model Cliente -m
++ Crear controladores con metodos basicos
+    cmd: php artisan make:controller ClienteController --resource
++ Crear Seeder para crear datos de pruebas
+    cmd: php artisan make:seeder ClientesTableSeeder
++ Migraciones + registros de pruebas (seed)
+    cmd: php artisan migrate:refresh --seed
++ WebPack
+    - Array de scripts
+    cmd: npm install (dependencias webpack)
+    cmd: npm run dev
++ Clonar proyecto
+    - Clonar repositorio
+    - instalar las dependencias:: cmd: artisan install
+    - crear el archivo ".env" y llenarlo con la información de ".env.example"
+    - cifrar la Aplicación:: cmd: php artisan key:generate
+    - correr Aplicación
++ Activar las tecnologias VUE AJAX
+    - Descargar vue.js
+    - Descargar axios.js
+    - Descargar bootstrap.js
++ Gravatar
+    - dir: siscontrol/vendor/thomaswelton/GravatarLib/Gravatar.php
+    
+
+http://www.autodaewoospark.com/junta-de-culata.php
+
+http://cheats.jesse-obrien.ca
+
+https://www.uno-de-piera.com/capturar-errores-formulario-laravel-vue-js-2/
