@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div id="detalleCotizacion" class="row">
+            <div id="detalleCotizacion" class="row hidden">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div id="detalleRepuestos" class="row">
+            <div id="detalleRepuestos" class="row hidden">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
@@ -219,11 +219,11 @@
                                             <td>@{{ dtlKeep.cantidad }}</td>
                                             <td>@{{ dtlKeep.monto }}</td>
                                             
-                                            <td><a href="#" title="Eliminar" class="glyphicon glyphicon glyphicon-trash pull-left" v-on:click.prevent="deleteDtlKeep(dtlKeep)" ></a></td>
+                                            <td><a href="#" title="Eliminar" class="btn_eliminar glyphicon glyphicon glyphicon-trash pull-left" v-on:click.prevent="deleteDtlKeep(dtlKeep)" ></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <nav>
+                                {{--  <nav>
                                     <ul class="pagination">
                                         <li v-if="pagination.current_page > 1">
                                             <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
@@ -241,7 +241,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav>  --}}
                             </div>
                         </div>
                     </div>

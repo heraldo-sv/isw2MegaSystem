@@ -5,6 +5,7 @@ namespace sisControl\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use sisControl\Cotizacion;
+use sisControl\Proyecto;
 
 class CotizacionController extends Controller
 {
@@ -153,6 +154,21 @@ class CotizacionController extends Controller
             'precio'      => 'required',
         ]);
         Cotizacion::find($id)->update($request->all());
+        
+        # Creación de proyecto si la cotización fue pagada
+        if ($request->estado = 2) { # 2: Pagada
+
+            $proyecto = new Proyecto;
+            
+            $proyecto->titulo       = $request->titulo;
+            $proyecto->cliente      = $request->cliente;
+            $proyecto->vehiculo     = $request->vehiculo;
+            $proyecto->descripcion  = $request->descripcion;
+            $proyecto->progreso     = 1;
+            $proyecto->estado       = 1;
+            $proyecto->save();
+        }
+        
         return;
     }
 

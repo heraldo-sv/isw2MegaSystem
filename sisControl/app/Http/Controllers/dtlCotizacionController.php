@@ -83,8 +83,19 @@ class dtlCotizacionController extends Controller
                 ,'b.descripcion'
                 ,DB::raw("CONCAT('$',FORMAT(b.valor,2)) as valor"))
         ->where('a.cotizacion', '=', $id)
-        ->orderBy('a.id', 'DESC')->get();
-        return $dtlProyectos;
+        ->orderBy('a.id', 'DESC')->paginate(7);
+
+        return [
+            'pagination' => [
+            'total'        => $dtlProyectos->total(),
+            'current_page' => $dtlProyectos->currentPage(),
+            'per_page'     => $dtlProyectos->perPage(),
+            'last_page'    => $dtlProyectos->lastPage(),
+            'from'         => $dtlProyectos->firstItem(),
+            'to'           => $dtlProyectos->lastPage()
+            ],
+            'dtlProyectos'    => $dtlProyectos
+        ];
     }
 
     /**
@@ -120,6 +131,9 @@ class dtlCotizacionController extends Controller
     {
         $dtlCotizacion = dtlCotizacion::findORFail($id);
         $dtlCotizacion->delete();
+
+        $total = DB::table('dtl_cotizacions')->where('cotizacion','=',$dtlCotizacion->cotizacion)->sum('monto');
+        Cotizacion::where('id','=',$dtlCotizacion->cotizacion)->update(['precio' => $total]);
     }
     /**
      * Display the specified resource.

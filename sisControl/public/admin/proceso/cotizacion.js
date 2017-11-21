@@ -90,6 +90,37 @@ new Vue({
             this.pagination.current_page = page;
             this.getKeeps(page);
         },
+        generalValidation: function (keep) {
+            switch (keep.estado) {
+                case 1: // No pagado
+                    
+                    break;
+                case 2: // Pagado
+                    toastr.info('La cotización se encuentra pagada y no puede modificarse');
+                    return false;
+                    break;
+                case 3: // Cancelado
+                    toastr.warning('La cotización se encuentra cancelada y no puede modificarse');
+                    return false;
+            }
+            return true;
+        },
+        getEstado: function (estado) {
+            switch (parseInt(estado)) {
+                case 1: // No pagado
+                    $('#btn_repuesto').removeClass('disabled');
+                    $('.btn_eliminar').show();
+                    break;
+                case 2: // Pagado
+                    $('#btn_repuesto').addClass('disabled');
+                    $('.btn_eliminar').hide();
+                    break;
+                case 3: // Cancelado
+                    $('#btn_repuesto').addClass('disabled');
+                    $('.btn_eliminar').hide();
+                    break;
+            }
+        },
         getClientes: function () {
             var urlKeeps ='listcliente';
             axios.get(urlKeeps).then(response => {
@@ -151,35 +182,49 @@ new Vue({
             });
         },
         editKeep: function (keep) {
-            this.fillKeep.id          = keep.id;
-            this.fillKeep.titulo      = keep.titulo;
-            this.fillKeep.cliente     = keep.cliente;
-            this.fillKeep.nomcliente  = keep.nomcliente;
-            this.fillKeep.vehiculo    = keep.vehiculo;
-            this.fillKeep.nomvehiculo = keep.nomvehiculo;
-            this.fillKeep.descripcion = keep.descripcion;
-            this.fillKeep.estado      = keep.estado;
-            this.fillKeep.precio      = keep.precio;
-            $("#estado01").val(keep.estado);
-            $('#updateMaster').modal('show');
+            if (this.generalValidation(keep)) {
+                this.fillKeep.id          = keep.id;
+                this.fillKeep.titulo      = keep.titulo;
+                this.fillKeep.cliente     = keep.cliente;
+                this.fillKeep.nomcliente  = keep.nomcliente;
+                this.fillKeep.vehiculo    = keep.vehiculo;
+                this.fillKeep.nomvehiculo = keep.nomvehiculo;
+                this.fillKeep.descripcion = keep.descripcion;
+                this.fillKeep.estado      = keep.estado;
+                this.fillKeep.precio      = keep.precio;
+                $("#estado01").val(keep.estado);
+                $('#updateMaster').modal('show');
+            }
         },
         updateKeep: function(id){
+            this.fillKeep.estado = $("#estado01").val();
             var urlKeep = 'cotizacion/'+id;
-            this.fillKeep.estado      = $("#estado01").val();
-            axios.put(urlKeep,this.fillKeep).then(response => {
-                this.getKeeps(this.pagination.current_page);
-                this.fillKeep = {'id': '', 'titulo': '', 'cliente': '', 'vehiculo': '', 'descripcion': '', 'estado': '', 'precio': ''};
-                this.errors = [];
-                $('#updateMaster').modal('hide');
-                toastr.success('Proyecto actualizado con exito');
-            }).catch(error => {
-                this.errors = error.response.data
-            });
+            var flag    = 1;
+            if (this.fillKeep.estado == 2) {
+                if (this.fillKeep.precio == 0.00) {
+                    toastr.error('No se puede pagar una cotización con $0.00 como valor total');
+                    flag = 0;
+                };
+            }
+            if (flag == 1) {
+                axios.put(urlKeep,this.fillKeep).then(response => {
+                    this.getKeeps(this.pagination.current_page);
+                    $('#updateMaster').modal('hide');
+                    toastr.success('Cotización actualizada con exito');
+                    if (this.fillKeep.estado == 2) {
+                        toastr.info('Se ha generado un proyecto a partir de esta cotización');
+                    }
+                    this.fillKeep = {'id': '', 'titulo': '', 'cliente': '', 'vehiculo': '', 'descripcion': '', 'estado': '', 'precio': ''};
+                    this.errors = [];
+                }).catch(error => {
+                    this.errors = error.response.data
+                });
+            }
         },
         getKeepsGnr: function(keep){
 
             this.getDtlKeeps(keep.id);
-
+            
             this.lookKeep.id           = keep.id;
             this.lookKeep.titulo       = keep.titulo;
             this.lookKeep.user         = keep.user;
@@ -192,6 +237,11 @@ new Vue({
             this.lookKeep.nomestado    = keep.nomestado;
             this.lookKeep.precio       = '$'+keep.precio;
             this.lookKeep.descripcion  = keep.descripcion;
+            this.lookKeep.estado       = keep.estado;
+
+            this.getEstado(keep.estado);
+            $('#detalleCotizacion').removeClass('hidden');
+            $('#detalleRepuestos').removeClass('hidden');
         },
         /* -----------------------------------------------
         ** Metodos para la tabla detalle
@@ -199,7 +249,8 @@ new Vue({
         getDtlKeeps: function (id) {
             var urlKeeps ='dtlcotizacion/'+id;
             axios.get(urlKeeps).then(response => {
-                this.dtlKeeps = response.data
+                this.dtlKeeps = response.data.dtlProyectos.data
+                //this.pagination = response.data.pagination
             });
         },
         dtlCreateKeep: function () {
@@ -221,12 +272,16 @@ new Vue({
         },
         deleteDtlKeep: function (dtlKeep) {
             var urlKeep = 'dtlcotizacion/'+dtlKeep.id;
-            axios.delete(urlKeep).then(response => {
-                this.getKeeps(this.pagination.current_page);
-                this.getDtlKeeps(this.lookKeep.id);
-                this.getSum(this.lookKeep.id);
-                toastr.success('Repuesto eliminado correctamente');
-            });
+            if (this.lookKeep.estado == 1) {
+                axios.delete(urlKeep).then(response => {
+                    this.getKeeps(this.pagination.current_page);
+                    this.getDtlKeeps(this.lookKeep.id);
+                    this.getSum(this.lookKeep.id);
+                    toastr.success('Repuesto eliminado correctamente.');
+                });
+            } else {
+                toastr.error('Imposible eliminar repuesto.');
+            }
         },
         getSum: function (id) {
             var urlKeeps ='dtlcotizacionsuma/'+id;
