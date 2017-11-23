@@ -9,13 +9,61 @@ use sisControl\Vehiculo;
 class VehiculoController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function look()
+    {
+        return view('admin.gestiones.vehiculo.vehiculos');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+       #$vehiculos = Vehiculo::orderBy('id', 'DESC')->paginate(7);
+        $vehiculos = DB::table('vehiculos as a')
+        ->leftJoin('clientes     as b', 'a.cliente',      '=', 'b.id')
+        ->leftJoin('aseguradoras as c', 'a.aseguradora',  '=', 'c.id')
+        ->select('a.id' 
+                ,'a.cliente' 
+                ,DB::raw("CONCAT(b.nombre,' ',b.apellido) as nomcliente")
+                ,'a.placa' 
+                ,'a.marca' 
+                ,'a.modelo' 
+                ,'a.anio'
+                ,'a.aseguradora'
+                ,'c.nombre as nomaseguradora'
+                ,'a.complemento' 
+                ,'a.comentario' 
+                ,'a.estado' 
+                ,'a.created_at' 
+                ,'a.updated_at')
+        ->orderBy('a.id', 'DESC')->paginate(7);
+
+        return [
+            'pagination' => [
+               'total'        => $vehiculos->total(),
+               'current_page' => $vehiculos->currentPage(),
+               'per_page'     => $vehiculos->perPage(),
+               'last_page'    => $vehiculos->lastPage(),
+               'from'         => $vehiculos->firstItem(),
+               'to'           => $vehiculos->lastPage()
+            ],
+            'vehiculos'       => $vehiculos
+        ];
     }
     /**
      * Display the specified resource.

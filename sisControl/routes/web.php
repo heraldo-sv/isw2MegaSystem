@@ -27,6 +27,7 @@ Route::get('catalogoconfig/{config}', 'CatalogoController@getControl')->name('Ca
 /* -- Rutas de la entidad: Aseguradora */
 Route::resource('aseguradora','AseguradoraController',['except' => 'show','create','edit']);
 Route::get('/aseguradoras', 'AseguradoraController@look')->name('Aseguradora');
+Route::get('/listaseguradora', 'AseguradoraController@list')->name('ListAseguradora');
 
 /* -- Rutas de la entidad: Proveedor */
 Route::resource('proveedor','ProveedorController',['except' => 'create','edit']);
@@ -44,6 +45,8 @@ Route::get('/clientes', 'ClienteController@look')->name('Proyecto');
 Route::get('/listcliente', 'ClienteController@list')->name('ListCliente');
 
 /* -- Rutas de la entidad: Vehiculo */
+Route::resource('vehiculo','VehiculoController',['except' => 'create','edit']);
+Route::get('/vehiculos', 'VehiculoController@look')->name('Vehiculo');
 Route::get('/listvehiculo/{id}', 'VehiculoController@list')->name('ListVehiculo');
 
 /* -- Rutas de la entidad: Cotizacion */

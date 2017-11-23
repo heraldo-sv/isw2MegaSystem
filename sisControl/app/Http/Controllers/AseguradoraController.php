@@ -3,6 +3,7 @@
 namespace sisControl\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use sisControl\Aseguradora;
 
 class AseguradoraController extends Controller
@@ -45,6 +46,21 @@ class AseguradoraController extends Controller
              'aseguradoras'    => $aseguradoras
          ];
      }
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $aseguradoras = DB::table('aseguradoras')
+        ->select(
+              DB::raw("CONCAT(id,' - Nombre: ',nombre) as aseguradora")
+             ,'id')
+        ->orderBy('id', 'ASC')->get();
+
+        return $aseguradoras;
+    }
     /**
      * Show the form for creating a new resource.
      *

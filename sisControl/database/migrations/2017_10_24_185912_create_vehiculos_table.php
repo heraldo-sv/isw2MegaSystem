@@ -21,6 +21,7 @@ class CreateVehiculosTable extends Migration
             $table->string('modelo');
             $table->integer('anio');
             $table->integer('aseguradora');
+            $table->text('complemento');
             $table->text('comentario');
             $table->integer('estado');
             $table->timestamps();

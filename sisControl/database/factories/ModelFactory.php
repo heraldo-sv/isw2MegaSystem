@@ -65,6 +65,7 @@ $factory->define(sisControl\Vehiculo::class, function (Faker\Generator $faker) {
         'marca'         => $faker->city,
         'modelo'        => $faker->buildingNumber,
         'anio'          => $faker->year,
+        'aseguradora'   => $faker->year,
         'complemento'   => $faker->sentence,
         'comentario'    => $faker->sentence,
         'estado'        => 1

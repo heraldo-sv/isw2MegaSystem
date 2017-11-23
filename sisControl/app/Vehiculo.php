@@ -13,6 +13,7 @@ class Vehiculo extends Model
         'modelo',
         'anio',
         'aseguradora',
+        'complemento',
         'comentario',
         'estado'
     ];
