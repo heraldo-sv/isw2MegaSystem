@@ -56,7 +56,7 @@ class ClienteController extends Controller
     {
         $clientes = DB::table('clientes')
         ->select(
-              DB::raw("CONCAT(id,' - Nombre: ',nombre,' ',apellido,', Telefono: ',telefono,', Correo: ',correo) as cliente")
+              DB::raw("CONCAT(id,' - Nombre: ',nombre,' ',apellido,', Documento: ',documento) as cliente")
              ,'id')
         ->orderBy('id', 'ASC')->get();
 

@@ -75,7 +75,7 @@ class VehiculoController extends Controller
     {
         $vehiculos = DB::table('vehiculos as c')
         ->select(
-              DB::raw("CONCAT('Marca: ',c.marca,', ','Modelo: ',c.modelo,', ','Año: ',c.anio) as nomvehiculo")
+              DB::raw("CONCAT('Placa: ',c.placa,' - Marca: ',c.marca,', ','Modelo: ',c.modelo,', ','Año: ',c.anio) as nomvehiculo")
              ,'c.id')
         ->where('c.cliente','=',$id)
         ->orderBy('c.id', 'ASC')->get();
@@ -101,7 +101,19 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'cliente'       => 'required',
+            'placa'         => 'required',
+            'marca'         => 'required',
+            'modelo'        => 'required',
+            'anio'          => 'required',
+            'aseguradora'   => 'required',
+            'complemento'   => 'required',
+            'comentario'    => 'required',
+            'estado'        => 'required',
+        ]);
+        Vehiculo::create($request->all());
+        return;
     }
 
     /**
@@ -146,6 +158,7 @@ class VehiculoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehiculos = Vehiculo::findORFail($id);
+        $vehiculos->delete();
     }
 }

@@ -99,13 +99,15 @@ new Vue({
         createKeep: function(){
             var urlKeep ='vehiculo';
             axios.post(urlKeep, {
+                cliente:     this.newCliente,
                 placa:       this.newPlaca,
                 marca:       this.newMarca,
                 modelo:      this.newModelo,
                 anio:        this.newAnio,
                 aseguradora: this.newAseguradora,
                 complemento: this.newComplemento,
-                comentario:  this.newComentario
+                comentario:  this.newComentario,
+                estado:      1
             }).then(response =>{
                 this.getKeeps();
                 this.newPlaca  = '';
