@@ -20,24 +20,17 @@ new Vue({
         /* -----------------------------------------------
         ** Metodos para obtener datos
         ** ----------------------------------------------- */ 
-        getKeeps: function(){
-            
+        getKeeps: function(){            
             if ((this.findCliente).length > 0 && (this.findProyecto).length > 0 && (this.findVehiculo).length > 0) {
                 var urlKeeps ='/consults/'+this.findProyecto+'/'+this.findCliente+'/'+this.findVehiculo;
                 axios.get(urlKeeps).then(response => {
                     this.keeps = response.data[0];
-                    if (this.keeps.id === undefined) {
-                        toastr.warning('Los datos ingresados no retornaron resultados.');
+                    if (this.keeps === undefined) {
+                        toastr.error('Los datos ingresados no retornaron resultados.');
                     } else {
                         this.getKeepsGnr(this.keeps);
+                        $('#dtl').click();
                     }
-
-
-                    // if (this.keeps.id > 0) {
-                    //     this.getKeepsGnr(this.keeps);
-                    // } else {
-                    //     toastr.warning('Los datos ingresados no retornaron resultados.');
-                    // }
                 });
             }
         },

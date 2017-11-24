@@ -1,7 +1,6 @@
 @extends('layouts.outfit')
 
 @section('main_container')
-
     <!-- page content -->
     <div class="right_col" role="main">
         <div id="consulta">
@@ -13,7 +12,7 @@
                                 <h2>Consulta de proyectos</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li>
-                                        <a class="collapse-link">
+                                        <a id="dtl" class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
                                     </li>
@@ -41,6 +40,7 @@
                                     data-parsley-validation-threshold="10"></textarea> -->
                                     <br/>
                                     <input type="submit" class="btn btn-primary" value="Consultar información">
+                                    <a href="{{ url('/') }}">Pagina principal</a>
                                     <br/>
                                     <span class="parsley-required" style="color: red" v-for="error in errors" class="text-danger">@{{ error }}</span>
                                 </form>

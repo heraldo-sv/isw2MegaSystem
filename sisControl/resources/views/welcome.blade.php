@@ -83,8 +83,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/consulta/cliente') }}">Ver progreso de vehiculo</a>
-                    <a href="https://laravel-news.com">Sobre nosotros</a>
+                    <a href="{{ url('/consulta') }}">Ver progreso de vehiculo</a>
+                    <a href="{{ url('/nosotros') }}">Sobre nosotros</a>
                 </div>
             </div>
         </div>
