@@ -4,7 +4,7 @@
 
     <!-- page content -->
     <div class="right_col" role="main">
-        <div id="clienteproyecto">
+        <div id="consulta">
             <div class="login_wrapper" style="max-width: 800px;">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,14 +28,14 @@
                             <div class="x_content">
                                 <!-- start form for validation -->
                                 <form id="demo-form2" data-parsley-validate method="get" role="search" v-on:submit.prevent="getKeeps">
-                                    <label for="cliente">Número único cliente: *</label>
-                                    <input type="text" id="cliente" class="form-control" name="cliente" data-parsley-pattern="^[0-9]*$" required v-model="findCliente"/>
                                     <label for="proyecto">Número único proyecto: *</label>
                                     <input type="text" id="proyecto" class="form-control" name="proyecto" data-parsley-pattern="^[0-9]*$" required v-model="findProyecto" />
-                                    <label for="placa">Número de placa del vehiculo: *</label>
-                                    <input type="text" id="placa" class="form-control" name="placa" data-parsley-pattern="^[0-9\-]*$" required v-model="findPlaca" />
-                                    <label for="correo">Correo electrónico: *</label>
-                                    <input type="email" id="correo" class="form-control" name="correo" data-parsley-trigger="change" required v-model="findCorreo" />
+                                    <label for="cliente">Número documento cliente: *</label>
+                                    <input type="text" id="cliente" class="form-control" name="cliente" data-parsley-pattern="^[0-9\-]*$" required v-model="findCliente"/>
+                                    <label for="placa">Número de placa del vehículo: *</label>
+                                    <input type="text" id="placa" class="form-control" name="placa" data-parsley-pattern="^[0-9\-]*$" required v-model="findVehiculo" />
+                                    {{--  <label for="correo">Correo electrónico: *</label>
+                                    <input type="email" id="correo" class="form-control" name="correo" data-parsley-trigger="change" required v-model="findCorreo" />  --}}
                                     <!-- <label for="message">Message (20 chars min, 100 max) :</label>
                                     <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                                     data-parsley-validation-threshold="10"></textarea> -->
@@ -184,11 +184,12 @@
                     </div>
                 </div>
             </div>
+            @include('admin.procesos.proyecto.photoShow')
         </div>
     </div>
     <!-- /page content -->
 @endsection
 
 @push('scripts')
-    <script src="{{ asset("admin/gestion/clienteproyecto.js") }}"></script>
+    <script src="{{ asset("admin/gestion/consulta.js") }}"></script>
 @endpush

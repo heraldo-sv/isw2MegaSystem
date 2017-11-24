@@ -70,5 +70,5 @@ Route::resource('imagen','ImagenController',['except' => 'create','store','edit'
 Route::post('/proyecto/imagenes', 'ImagenController@upload')->name('SubirFotos');
 
 /* -- Rutas para la gestión de consultas */
-Route::get('/consulta/cliente', 'ConsultaController@index')->name('ConsultaClientes');
-Route::get('/consulta/proyecto', 'ConsultaController@show')->name('ConsultaProyecto');
+Route::get('/consulta', 'ConsultaController@index')->name('ConsultaClientes');
+Route::get('/consults/{proyecto}/{cliente}/{vehiculo}', 'ConsultaController@show')->name('ConsultaProyecto');

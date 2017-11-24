@@ -1,6 +1,6 @@
 
 new Vue({
-    el: '#clienteproyecto',
+    el: '#consulta',
     created: function(){
     },
     data: {
@@ -12,7 +12,7 @@ new Vue({
         ** Objetos para la tabla maestra
         ** ----------------------------------------------- */ 
         dtlKeeps: [], dtlImages: [],
-        findCliente: '', findProyecto: '', findPlaca: '', findCorreo: '',
+        findProyecto: '', findCliente: '', findVehiculo: '',
         fillKeep: {'cliente': '', 'proyecto': '', 'placa': '', 'correo': ''},
         lookKeep: {'id': '', 'titulo': '', 'cliente': '', 'nomcliente': '', 'telcliente': '', 'vehiculo': '', 'nomvehiculo': '', 'descripcion': '', 'progreso': '', 'estado': ''},
     },
@@ -22,20 +22,19 @@ new Vue({
         ** ----------------------------------------------- */ 
         getKeeps: function(){
             
-            if ((this.findCliente).length > 0 && (this.findProyecto).length > 0 && (this.findPlaca).length > 0 && (this.findCorreo).length > 0) {
-                //var urlKeeps ='/proyecto/cliente/'+this.findCliente+'/'+this.findProyecto+'/'+this.findPlaca+'/'+this.findCorreo;
-                var urlKeeps ='/consulta/proyecto';
-                alert(urlKeeps);
+            if ((this.findCliente).length > 0 && (this.findProyecto).length > 0 && (this.findVehiculo).length > 0) {
+                var urlKeeps ='/consults/'+this.findProyecto+'/'+this.findCliente+'/'+this.findVehiculo;
                 axios.get(urlKeeps).then(response => {
-                    var json = response.data.proyecto
+                    this.keeps = response.data[0];
+                    if (this.keeps.id === undefined) {
+                        toastr.warning('Los datos ingresados no retornaron resultados.');
+                    } else {
+                        this.getKeepsGnr(this.keeps);
+                    }
 
-                    alert(json);
 
-                    //this.getKeepsGnr(this.keeps);
-
-
-                    // if ((this.keeps.id).length > 0) {
-                    //     getKeepsGnr(this.keeps);
+                    // if (this.keeps.id > 0) {
+                    //     this.getKeepsGnr(this.keeps);
                     // } else {
                     //     toastr.warning('Los datos ingresados no retornaron resultados.');
                     // }
@@ -43,8 +42,6 @@ new Vue({
             }
         },
         getKeepsGnr: function(keep){
-            
-            this.getKeepsDtl(keep.id);
             
             this.lookKeep.titulo      = keep.titulo;
             this.lookKeep.cliente     = keep.cliente;
@@ -59,6 +56,8 @@ new Vue({
             this.dtlKeepProyecto      = keep.id;
             this.dtlKeepEtapa         = keep.progreso;
             this.dtlKeepUser          = $('#apk').val(); //.. Identificador usuario
+
+            this.getKeepsDtl(keep.id);
 
             this.getEstado(keep.estado);
             this.getEtapa(keep.progreso);
@@ -153,53 +152,6 @@ new Vue({
                     
                     break;
             }
-        },
-        dtlCreateKeep: function(){
-            var urlKeep ='dtlproyecto';
-            if ($('#chg').val() == 'etapa') {
-                this.dtlKeepEtapa += 1;
-            }
-            axios.post(urlKeep, {
-                proyecto: this.dtlKeepProyecto,
-                user: this.dtlKeepUser,
-                titulo: this.dtlKeepTitulo,
-                etapa: this.dtlKeepEtapa,
-                descripcion: this.dtlKeepDescripcion
-            }).then(response =>{
-                this.dtlKeeps = response.data;
-                this.getKeepsDtl(this.dtlKeeps.proyecto);
-                switch ($('#chg').val()) {
-                    case 'etapa':
-                        this.getKeeps(this.pagination.current_page);
-                        this.getEtapa(this.dtlKeepEtapa);
-                        $('#changeDetail').modal('hide');
-                        toastr.success('Cambio de etapa generada con exito');
-                        break;
-                    case 'entrada':
-                        $('#createDetail').modal('hide');
-                        toastr.success('Entrada generada con exito');
-                        break;
-                }
-              /*this.dtlKeepUser = '';
-                this.dtlKeepProyecto = '';
-                this.dtlKeepEtapa = '';*/
-                this.dtlKeepTitulo = '';
-                this.dtlKeepDescripcion = '';
-                this.errors = [];
-                this.dtlCreImage(this.dtlKeeps);
-            }).catch(error => {
-                this.errors = error.response.data
-            });
-        },
-        dtlCreImage: function (dtlKeeps) {
-            $('#hst').val(dtlKeeps.id);
-            $('#dtlfile').modal('show');
-        },
-        dtlDeteleImage: function (keep) {
-            var urlKeep = 'imagen/' + keep.id;
-            axios.delete(url).then(response => {
-                toastr.success('Imagen eliminada correctamente');
-            });
         },
         dtlGetImage: function (dtlKeeps) {
             var urlKeeps ='imagen/'+dtlKeeps.id;

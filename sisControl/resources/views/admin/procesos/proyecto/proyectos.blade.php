@@ -1,8 +1,7 @@
 @extends('layouts.blank')
 
 @push('stylesheets')
-    <!-- Clases para Slider -->
-    <link href="{{ asset("admin/proceso/proyecto.css") }}" rel="stylesheet">
+    
 @endpush
 
 @section('main_container')
