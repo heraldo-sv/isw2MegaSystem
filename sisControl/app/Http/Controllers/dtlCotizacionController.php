@@ -70,10 +70,12 @@ class dtlCotizacionController extends Controller
     public function show($id)
     {
         $dtlProyectos = DB::table('dtl_cotizacions as a')
-        ->leftJoin('repuestos as b','a.repuesto','=','b.id')
+        ->leftJoin('repuestos  as b','a.repuesto','=','b.id')
+        ->leftJoin('proveedors as c','b.proveedor','=','c.id')
         ->select('a.id'
                 ,'a.cotizacion'
                 ,'a.repuesto'
+                ,DB::raw("CONCAT('Nombre: ',c.nombre,', Telefono: ',c.telefono) as nomproveedor")
                 ,'a.user'
                 ,'a.cantidad'
                 ,DB::raw("CONCAT('$',FORMAT(a.monto,2)) as monto")

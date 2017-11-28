@@ -39,9 +39,9 @@
                                         <a id="btn" href="#" class="btn btn-danger pull-right" data-toggle="modal" data-target="#dtlimage">Test</a>
                                         --}}
                                     </div>
-                                    <div class="col-md-7 col-sm-12 col-xs-12 form-group">
+                                    {{--  <div class="col-md-7 col-sm-12 col-xs-12 form-group">
                                         <a id="btn_proyecto" href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createMaster"> Nuevo proyecto</a>    
-                                    </div>
+                                    </div>  --}}
                                 </div>
                                 <table id="datatable" class="table dataTable no-footer table-hover" role="grid" aria-describedby="datatable_info">
                                     <thead>

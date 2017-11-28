@@ -16,7 +16,7 @@
                     <label for="vehiculo">Vehiculo</label>
                     <input type="text" name="vehiculo" class="form-control" disabled v-model="fillKeep.nomvehiculo">
                     <label for="estado">Estado</label>
-                    <select name="estado" id="estado01" class="form-control">
+                    <select name="estado" id="estado01" class="form-control" v-model="fillKeep.estado">
                         <option v-for="estado in estados" v-bind:value="estado.codigo">@{{ estado.valor }}</option>
                     </select>
                     <label for="descripcion">Descripción</label>

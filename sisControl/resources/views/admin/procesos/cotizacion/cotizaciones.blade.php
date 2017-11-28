@@ -2,7 +2,6 @@
 
 @push('stylesheets')
     <!-- Clases para Slider -->
-    <link href="{{ asset("admin/proceso/proyecto.css") }}" rel="stylesheet">
 @endpush
 
 @section('main_container')
@@ -60,7 +59,7 @@
                                             <td>@{{ keep.nomestado }}</td>
                                             <td>@{{ keep.precio }}</td>
                                             
-                                            <td><a href="#" title="Ver detalles" class="glyphicon glyphicon glyphicon-th-list pull-right" v-on:click.prevent="getKeepsGnr(keep)" ></a></td>
+                                            <td><a :id="keep.id" href="#" title="Ver detalles" class="glyphicon glyphicon glyphicon-th-list pull-right" v-on:click.prevent="getKeepsGnr(keep)" ></a></td>
                                             <td><a href="#" title="Editar" class="glyphicon glyphicon-pencil pull-left" v-on:click.prevent="editKeep(keep)" ></a></td>
                                         </tr>
                                     </tbody>

@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <label for="repuesto">Repuesto</label>
-                    <select name="repuesto" id="selRep02" class="select2-repuestos disabled" style="width: 100%">
+                    <select name="repuesto" id="selRep02" class="form-control" v-model="dtlKeepRepuesto">
                         <option v-for="repuesto in repuestos" v-bind:value="repuesto.id">@{{ repuesto.repuesto }}</option>
                     </select>
                     <label for="cantidad">Cantidad</label>

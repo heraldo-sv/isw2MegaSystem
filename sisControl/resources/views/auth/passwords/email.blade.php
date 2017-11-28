@@ -49,7 +49,7 @@
 					
 					<div>
                         <h1><i class="fa fa-gg-circle"></i> MegaSystem</h1>
-                        <p>©2017 iso2MegaSystem - Branch [sisControl]</p>
+                        <p>©2017 isw2MegaSystem - Branch [sisControl]</p>
                     </div>
 				</div>
 					

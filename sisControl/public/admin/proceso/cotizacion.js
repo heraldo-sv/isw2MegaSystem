@@ -58,7 +58,7 @@ new Vue({
         keeps: [],
         dtlKeeps: [],
         newKeepTitulo: '', newKeepCliente: '', newKeepVehiculo: '', newKeepDescripcion: '', newKeepEstado: '', newKeepPrecio: '',
-        dtlKeepCantidad: '',
+        dtlKeepRepuesto: '', dtlKeepCantidad: '',
         fillKeep: {'id': '', 'titulo': '', 'cliente': '', 'vehiculo': '', 'descripcion': '', 'estado': '', 'precio': ''},
         lookKeep: {'id': '', 'titulo': '', 'user': '', 'nomuser': '', 'cliente': '', 'nomcliente': '', 'vehiculo': '', 
                    'nomvehiculo': '', 'fecha': '', 'estado': '', 'nomestado': '', 'precio': '', 'descripcion': ''},
@@ -209,6 +209,8 @@ new Vue({
             if (flag == 1) {
                 axios.put(urlKeep,this.fillKeep).then(response => {
                     this.getKeeps(this.pagination.current_page);
+                    this.getEstado(this.fillKeep.estado);
+                    this.lookKeep.nomestado    = $('#estado01 option:selected').text();
                     $('#updateMaster').modal('hide');
                     toastr.success('Cotización actualizada con exito');
                     if (this.fillKeep.estado == 2) {
@@ -257,7 +259,7 @@ new Vue({
             var urlKeep ='dtlcotizacion';
             axios.post(urlKeep, {
                 cotizacion: this.lookKeep.id,
-                repuesto: $('#selRep02').select2('val'),
+                repuesto: this.dtlKeepRepuesto, //$('#selRep02').select2('val'),
                 cantidad: this.dtlKeepCantidad
             }).then(response =>{
                 this.getKeeps(this.pagination.current_page);

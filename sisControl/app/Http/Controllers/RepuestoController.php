@@ -15,11 +15,11 @@ class RepuestoController extends Controller
      */
     public function list(Request $request)
     {
-        $clientes = DB::table('repuestos')
-        ->select(
-              DB::raw("CONCAT(id,' - Nombre: ',nombre,', Valor: $',valor,', Proveedor: ',proveedor) as repuesto")
-             ,'id')
-        ->orderBy('id', 'ASC')->get();
+        $clientes = DB::table('repuestos as a')
+        ->leftJoin('proveedors as b','a.proveedor','=','b.id')
+        ->select(DB::raw("CONCAT(a.id,' - Nombre: ',a.nombre,', Valor: $',a.valor,', Proveedor: ',b.nombre) as repuesto")
+                ,'a.id')
+        ->orderBy('a.id', 'ASC')->get();
 
         return $clientes;
     }
