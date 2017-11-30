@@ -50,8 +50,8 @@
                     </li>
                     <li><a><i class="fa fa-file-pdf-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Clientes detalle</a></li>
-                            <li><a href="#">Proveedores</a></li>
+                            <li><a href="{{ url('/reporte/clientes') }}"  target="_blank">Clientes detalle</a></li>
+                            <li><a href="{{ url('/reporte/proveedor') }}" target="_blank">Proveedores</a></li>
                         </ul>
                     </li>
                 </ul>

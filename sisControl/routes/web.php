@@ -72,3 +72,8 @@ Route::post('/proyecto/imagenes', 'ImagenController@upload')->name('SubirFotos')
 /* -- Rutas para la gestión de consultas */
 Route::get('/consulta', 'ConsultaController@index')->name('ConsultaClientes');
 Route::get('/consults/{proyecto}/{cliente}/{vehiculo}', 'ConsultaController@show')->name('ConsultaProyecto');
+
+/* -- Rutas para generar reportes */
+
+Route::get('/reporte/clientes', 'ReporteController@cliente')->name('ReporteClientes');
+Route::get('/reporte/proveedor', 'ReporteController@proveedor')->name('ReporteProveedor');
