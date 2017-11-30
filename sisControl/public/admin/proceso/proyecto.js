@@ -42,11 +42,13 @@ $(document).ready(function() {
                 });
             });
             this.on("removedfile", function(file, response) { // Al eliminar una imagen del listado
-                var json = jQuery.parseJSON(file.xhr.response);
-                var url = 'imagen/' + json.id;
-                axios.delete(url).then(response => {
-                    toastr.success('Imagen eliminada correctamente');
-                });
+                if ($('#del').val() == 1) {
+                    var json = jQuery.parseJSON(file.xhr.response);
+                    var url = 'imagen/' + json.id;
+                    axios.delete(url).then(response => {
+                        toastr.success('Imagen eliminada correctamente');
+                    });
+                }
             });
         }
     };
@@ -362,6 +364,9 @@ new Vue({
             });
         },
         dtlCreImage: function (dtlKeeps) {
+            $('#del').val('0');
+            Dropzone.forElement("#dtlfileupload").removeAllFiles(true);
+            $('#del').val('1');
             $('#hst').val(dtlKeeps.id);
             $('#dtlfile').modal('show');
         },

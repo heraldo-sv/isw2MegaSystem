@@ -238,6 +238,7 @@
             @include('admin.procesos.proyecto.photoShow')
             <input type="hidden" id="flag" value="1">
             <input type="hidden" id="chg">
+            <input type="hidden" id="del" value="1">
             <input type="hidden" id="hst" value="{{ Request::root() }}">
         </div>
     </div>

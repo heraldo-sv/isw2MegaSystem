@@ -11,7 +11,6 @@
                 {{--  <form action="{{ asset('/proyecto/'.$project->id.'/imagenes') }}" class="dropzone" id="dtlfileupload">  --}}
                 {{--  <form action="{{ asset('') }}" class="dropzone" id="dtlfileupload">  --}}
                 <form action="{{ asset('/proyecto/imagenes') }}" class="dropzone" enctype="multipart/form-data" id="dtlfileupload">
-                    
                     {{ csrf_field() }}
                 </form>
             </div>

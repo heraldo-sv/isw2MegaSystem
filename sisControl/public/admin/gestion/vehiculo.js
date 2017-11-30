@@ -110,10 +110,11 @@ new Vue({
                 estado:      1
             }).then(response =>{
                 this.getKeeps();
-                this.newPlaca  = '';
-                this.newMarca  = '';
-                this.newModelo = '';
-                this.newAnio   = '';
+                this.newCliente = '';
+                this.newPlaca   = '';
+                this.newMarca   = '';
+                this.newModelo  = '';
+                this.newAnio    = '';
                 this.newAseguradora = '';
                 this.newComplemento = '';
                 this.newComentario  = '';
