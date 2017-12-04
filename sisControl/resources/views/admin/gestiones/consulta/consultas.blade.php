@@ -32,7 +32,7 @@
                                     <label for="cliente">Número documento cliente: *</label>
                                     <input type="text" id="cliente" class="form-control" name="cliente" data-parsley-pattern="^[0-9\-]*$" required v-model="findCliente"/>
                                     <label for="placa">Número de placa del vehículo: *</label>
-                                    <input type="text" id="placa" class="form-control" name="placa" data-parsley-pattern="^[0-9\-]*$" required v-model="findVehiculo" />
+                                    <input type="text" id="placa" class="form-control" name="placa" data-parsley-pattern="^[0-9\-\A-Z]*$" required v-model="findVehiculo" />
                                     {{--  <label for="correo">Correo electrónico: *</label>
                                     <input type="email" id="correo" class="form-control" name="correo" data-parsley-trigger="change" required v-model="findCorreo" />  --}}
                                     <!-- <label for="message">Message (20 chars min, 100 max) :</label>
