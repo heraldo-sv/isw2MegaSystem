@@ -17,6 +17,7 @@ Log de cambios
 + Crear Seeder para crear datos de pruebas
     cmd: php artisan make:seeder ClientesTableSeeder
 + Migraciones + registros de pruebas (seed)
+    cmd: php artisan migrate:install
     cmd: php artisan migrate:refresh --seed
 + WebPack
     - Array de scripts
